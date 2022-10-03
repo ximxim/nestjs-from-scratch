@@ -6,7 +6,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UserService } from './user/user.service';
 import { UserModule } from './user/user.module';
-import { TypeOrmOptions } from './typeorm.config';
+import { TypeOrmOptions } from './typeorm';
 
 @Module({
   imports: [
