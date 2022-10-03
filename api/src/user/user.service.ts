@@ -1,27 +1,26 @@
-import { Injectable } from '@nestjs/common';
-
-interface User {
-  id: number;
-  username: string;
-  password: string;
-}
+import { Injectable, OnModuleInit } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User } from '../typeorm';
 
 @Injectable()
-export class UserService {
-  private readonly users: User[] = [
-    {
-      id: 1,
+export class UserService implements OnModuleInit {
+  constructor(
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
+  ) {}
+
+  async onModuleInit() {
+    const dbUser = await this.userRepository.findOneBy({ username: 'john' });
+    if (dbUser) return;
+    const draftUser = this.userRepository.create({
       username: 'john',
       password: 'changeme',
-    },
-    {
-      id: 2,
-      username: 'maria',
-      password: 'guess',
-    },
-  ];
+    });
+    await this.userRepository.save(draftUser);
+  }
 
   async findOne(username: string): Promise<User | undefined> {
-    return this.users.find((user) => user.username === username);
+    return this.userRepository.findOneBy({ username });
   }
 }
