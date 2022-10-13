@@ -1,6 +1,6 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, DataSource } from 'typeorm';
 import { User, Profile } from '../typeorm';
 
 @Injectable()
@@ -10,19 +10,23 @@ export class UserService implements OnModuleInit {
     private readonly userRepository: Repository<User>,
     @InjectRepository(Profile)
     private readonly profileRepository: Repository<Profile>,
+    private dataSource: DataSource,
   ) {}
 
   async onModuleInit() {
     const dbUser = await this.userRepository.findOneBy({ username: 'john' });
     if (dbUser) return;
-    const draftProfile = this.profileRepository.create({ age: 19 });
-    const dbProfile = await this.profileRepository.save(draftProfile);
-    const draftUser = this.userRepository.create({
-      username: 'john',
-      password: 'changeme',
-      profile: dbProfile,
+
+    await this.dataSource.transaction(async (manager) => {
+      const draftProfile = this.profileRepository.create({ age: 19 });
+      const dbProfile = await manager.save(draftProfile);
+      const draftUser = this.userRepository.create({
+        username: 'john',
+        password: 'changeme',
+        profile: dbProfile,
+      });
+      await manager.save(draftUser);
     });
-    await this.userRepository.save(draftUser);
   }
 
   async findOne(username: string): Promise<User | undefined> {
