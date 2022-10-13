@@ -1,7 +1,15 @@
-import { Entity, Column, OneToMany, ManyToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  OneToMany,
+  ManyToMany,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { Recommomendation } from './recommomendation.entity';
 import { Perk } from './perk.entity';
+import { Profile } from './profile.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -31,4 +39,8 @@ export class User extends BaseEntity {
 
   @ManyToMany(() => Perk, (perk) => perk.users)
   perks: Perk;
+
+  @OneToOne(() => Profile)
+  @JoinColumn()
+  profile: Profile;
 }

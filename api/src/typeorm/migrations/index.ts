@@ -3,6 +3,7 @@ import { init1665674695718 } from './1665674695718-init';
 import { init1665674993819 } from './1665674993819-init';
 import { init1665676312413 } from './1665676312413-init';
 import { init1665676879837 } from './1665676879837-init';
+import { init1665677585363 } from './1665677585363-init';
 
 export default [
   init1664814256102,
@@ -10,4 +11,5 @@ export default [
   init1665674993819,
   init1665676312413,
   init1665676879837,
+  init1665677585363,
 ];
