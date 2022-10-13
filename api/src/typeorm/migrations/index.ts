@@ -1,3 +1,5 @@
 import { init1664814256102 } from './1664814256102-init';
+import { init1665674695718 } from './1665674695718-init';
+import { init1665674993819 } from './1665674993819-init';
 
-export default [init1664814256102];
+export default [init1664814256102, init1665674695718, init1665674993819];
