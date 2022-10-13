@@ -1,6 +1,7 @@
-import { Entity, Column, OneToMany } from 'typeorm';
+import { Entity, Column, OneToMany, ManyToMany } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { Recommomendation } from './recommomendation.entity';
+import { Perk } from './perk.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -27,4 +28,7 @@ export class User extends BaseEntity {
     (recommomendation) => recommomendation.user,
   )
   recommomendations: Recommomendation[];
+
+  @ManyToMany(() => Perk, (perk) => perk.users)
+  perks: Perk;
 }
