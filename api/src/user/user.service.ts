@@ -1,7 +1,9 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, DataSource } from 'typeorm';
-import { User, Profile } from '../typeorm';
+import { Profile, User } from 'src/typeorm';
+import { DataSource, Repository } from 'typeorm';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UserService implements OnModuleInit {
@@ -12,6 +14,26 @@ export class UserService implements OnModuleInit {
     private readonly profileRepository: Repository<Profile>,
     private dataSource: DataSource,
   ) {}
+
+  create(createUserDto: CreateUserDto) {
+    return this.userRepository.create(createUserDto);
+  }
+
+  findAll() {
+    return this.userRepository.find();
+  }
+
+  findOne(id: number) {
+    return this.userRepository.findOne({ where: { id } });
+  }
+
+  update(id: number, updateUserDto: UpdateUserDto) {
+    return this.userRepository.update(id, updateUserDto);
+  }
+
+  remove(id: number) {
+    return this.userRepository.delete(id);
+  }
 
   async onModuleInit() {
     const dbUser = await this.userRepository.findOneBy({ username: 'john' });
@@ -29,7 +51,7 @@ export class UserService implements OnModuleInit {
     });
   }
 
-  async findOne(username: string): Promise<User | undefined> {
+  async findOneByUsername(username: string): Promise<User | undefined> {
     return this.userRepository.findOneBy({ username });
   }
 }
