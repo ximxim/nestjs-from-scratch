@@ -100,4 +100,12 @@ describe('AppController (e2e)', () => {
     expect(response.statusCode).toEqual(200);
     expect(response.body.username).toEqual(username);
   });
+
+  it('/user/:id (DELETE)', async () => {
+    const response = await request(app.getHttpServer())
+      .delete(`/user/${newUserId}`)
+      .set({ Authorization: `Bearer ${accessToken}` });
+
+    expect(response.statusCode).toEqual(200);
+  });
 });
