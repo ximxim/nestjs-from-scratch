@@ -12,6 +12,7 @@ import {
   ApiTags,
   ApiBearerAuth,
   ApiResponse,
+  ApiBody,
   ApiCreatedResponse,
 } from '@nestjs/swagger';
 import { UserService } from './user.service';
@@ -27,6 +28,7 @@ import { User } from '../typeorm';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @ApiBody({ type: CreateUserDto })
   @ApiCreatedResponse({ type: User })
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
@@ -45,6 +47,7 @@ export class UserController {
     return this.userService.findOne(+id);
   }
 
+  @ApiBody({ type: UpdateUserDto })
   @ApiResponse({ type: User })
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
