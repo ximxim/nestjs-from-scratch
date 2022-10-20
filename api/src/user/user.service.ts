@@ -28,8 +28,11 @@ export class UserService implements OnModuleInit {
     return this.userRepository.findOne({ where: { id } });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return this.userRepository.update(id, updateUserDto);
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    return this.dataSource.transaction(async (manager) => {
+      await manager.update(User, id, updateUserDto);
+      return this.userRepository.findOne({ where: { id } });
+    });
   }
 
   remove(id: number) {

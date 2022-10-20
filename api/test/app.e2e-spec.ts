@@ -7,6 +7,7 @@ describe('AppController (e2e)', () => {
   let app: INestApplication;
   let accessToken: string;
   let currentUserId: number;
+  let newUserId: number;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -74,6 +75,7 @@ describe('AppController (e2e)', () => {
       .send({ username, password: 'changeme' })
       .set({ Authorization: `Bearer ${accessToken}` });
 
+    newUserId = response.body.id;
     expect(response.statusCode).toEqual(201);
     expect(response.body.id).toBeTruthy();
     expect(response.body.username).toEqual(username);
@@ -86,5 +88,16 @@ describe('AppController (e2e)', () => {
 
     expect(response.statusCode).toEqual(200);
     expect(response.body.length).toBeGreaterThan(0);
+  });
+
+  it('/user/:id (PATCH)', async () => {
+    const username = 'ximxim';
+    const response = await request(app.getHttpServer())
+      .patch(`/user/${newUserId}`)
+      .send({ username })
+      .set({ Authorization: `Bearer ${accessToken}` });
+
+    expect(response.statusCode).toEqual(200);
+    expect(response.body.username).toEqual(username);
   });
 });
