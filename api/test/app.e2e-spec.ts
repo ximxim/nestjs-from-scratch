@@ -36,7 +36,7 @@ describe('AppController (e2e)', () => {
   it('/auth/login (POST)', async () => {
     const response = await request(app.getHttpServer())
       .post('/auth/login')
-      .send({ username: 'azim', password: 'changeme' });
+      .send({ username: 'azim', password: 'changeme1' });
 
     expect(response.statusCode).toEqual(401);
   });
@@ -64,5 +64,26 @@ describe('AppController (e2e)', () => {
 
     expect(response.statusCode).toEqual(200);
     expect(response.body.id).toEqual(currentUserId);
+  });
+
+  it('/user (POST)', async () => {
+    const username = 'azim';
+    const response = await request(app.getHttpServer())
+      .post('/user')
+      .send({ username, password: 'changeme' })
+      .set({ Authorization: `Bearer ${accessToken}` });
+
+    expect(response.statusCode).toEqual(201);
+    expect(response.body.id).toBeTruthy();
+    expect(response.body.username).toEqual(username);
+  });
+
+  it('/user (GET)', async () => {
+    const response = await request(app.getHttpServer())
+      .get('/user')
+      .set({ Authorization: `Bearer ${accessToken}` });
+
+    expect(response.statusCode).toEqual(200);
+    expect(response.body.length).toBeGreaterThan(0);
   });
 });

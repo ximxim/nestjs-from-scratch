@@ -16,7 +16,8 @@ export class UserService implements OnModuleInit {
   ) {}
 
   create(createUserDto: CreateUserDto) {
-    return this.userRepository.create(createUserDto);
+    const draftUser = this.userRepository.create(createUserDto);
+    return this.userRepository.save(draftUser);
   }
 
   findAll() {
