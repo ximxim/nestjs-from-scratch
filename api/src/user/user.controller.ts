@@ -1,62 +1,19 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  UseGuards,
-} from '@nestjs/common';
-import {
-  ApiTags,
-  ApiBearerAuth,
-  ApiResponse,
-  ApiBody,
-  ApiCreatedResponse,
-} from '@nestjs/swagger';
+import { Controller, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { JWTAuthGuard } from '../auth/jwt-auth-guard';
 import { User } from '../typeorm';
+import { Crud, CrudController } from '@nestjsx/crud';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@Crud({
+  model: {
+    type: User,
+  },
+})
 @ApiTags('user')
-@Controller('user')
 @ApiBearerAuth()
+@Controller('user')
 @UseGuards(JWTAuthGuard)
-export class UserController {
-  constructor(private readonly userService: UserService) {}
-
-  @ApiBody({ type: CreateUserDto })
-  @ApiCreatedResponse({ type: User })
-  @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
-  }
-
-  @ApiResponse({ type: User, isArray: true })
-  @Get()
-  findAll() {
-    return this.userService.findAll();
-  }
-
-  @ApiResponse({ type: User })
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
-  }
-
-  @ApiBody({ type: UpdateUserDto })
-  @ApiResponse({ type: User })
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
-  }
-
-  @ApiResponse({})
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
-  }
+export class UserController implements CrudController<User> {
+  constructor(public service: UserService) {}
 }
