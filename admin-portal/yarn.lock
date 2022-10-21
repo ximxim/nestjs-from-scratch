@@ -1316,6 +1316,13 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
+"@fusionworks/ra-data-nest-crud@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/@fusionworks/ra-data-nest-crud/-/ra-data-nest-crud-1.0.8.tgz#f85ef3d0b143a595038e7c9e58614887b1910c77"
+  integrity sha512-O4yv5nGqjLIApEsu0ni7jfVOGvv1uzv1CBxv4vfLpNQK3lk0/9qZwAUfJyHldgNh7D+PFs+UABiszFdsjGlxeA==
+  dependencies:
+    "@nestjsx/crud-request" "^4.1.0"
+
 "@humanwhocodes/config-array@^0.10.5":
   version "0.10.6"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.10.6.tgz#70b53559baf544dc2cc5eea6082bf90467ccb1dc"
@@ -1737,6 +1744,19 @@
     "@types/react-is" "^16.7.1 || ^17.0.0"
     prop-types "^15.8.1"
     react-is "^18.2.0"
+
+"@nestjsx/crud-request@^4.1.0":
+  version "4.6.2"
+  resolved "https://registry.yarnpkg.com/@nestjsx/crud-request/-/crud-request-4.6.2.tgz#c0d29df354b3de648a44dc0973f80131c953af86"
+  integrity sha512-EqveTzR5JLMRBnxqJzo0mm7Ff05IzQ6dvfg1gj46q6nOwZ0hfXr0FBTChtciKtkZB/QOlWQ5B1scCap/QuNJWQ==
+  dependencies:
+    "@nestjsx/util" "^4.6.2"
+    qs "^6.8.0"
+
+"@nestjsx/util@^4.6.2":
+  version "4.6.2"
+  resolved "https://registry.yarnpkg.com/@nestjsx/util/-/util-4.6.2.tgz#89bd31447a30f9666d7ad1616111c78b2d61dd56"
+  integrity sha512-YG2gQvSm7p8zBFaW6MFM5r1Ihk4Vr189SB2OTr7fV7qcjPS+02v7xILw2dTz2emdmu0t0AgCL2RU1V0lY8Aa9w==
 
 "@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1":
   version "5.1.1-v1"
@@ -7656,6 +7676,13 @@ qs@6.10.3:
   version "6.10.3"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.10.3.tgz#d6cde1b2ffca87b5aa57889816c5f81535e22e8e"
   integrity sha512-wr7M2E0OFRfIfJZjKGieI8lBKb7fRCH4Fv5KNPEs7gJ8jadvotdsS08PzOKR7opXhZ/Xkjtt3WF9g38drmyRqQ==
+  dependencies:
+    side-channel "^1.0.4"
+
+qs@^6.8.0:
+  version "6.11.0"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.11.0.tgz#fd0d963446f7a65e1367e01abd85429453f0c37a"
+  integrity sha512-MvjoMCJwEarSbUYk5O+nmoSzSutSsTwF85zcHPQ9OrlFoZOYIjaqBAJIqIXjptyD5vThxGq52Xu/MaJzRkIk4Q==
   dependencies:
     side-channel "^1.0.4"
 
