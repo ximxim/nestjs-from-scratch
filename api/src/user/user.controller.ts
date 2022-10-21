@@ -12,6 +12,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
     type: User,
   },
   query: {
+    softDelete: true,
     exclude: ['password'],
     alwaysPaginate: true,
     limit: 2,
