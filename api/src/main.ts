@@ -2,11 +2,27 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { format, transports } from 'winston';
+import { WinstonModule, utilities as nestWinstonUtilities } from 'nest-winston';
 
 const { PORT } = process.env;
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { cors: true });
+  const app = await NestFactory.create(AppModule, {
+    cors: true,
+    logger: WinstonModule.createLogger({
+      transports: [
+        new transports.Console({
+          level: 'silly',
+          format: format.combine(
+            format.timestamp(),
+            format.ms(),
+            nestWinstonUtilities.format.nestLike('HRManager'),
+          ),
+        }),
+      ],
+    }),
+  });
   app.useGlobalPipes(new ValidationPipe());
 
   const config = new DocumentBuilder()
