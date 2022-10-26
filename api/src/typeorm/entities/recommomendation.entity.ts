@@ -12,4 +12,8 @@ export class Recommomendation extends BaseEntity {
   // @ApiProperty({ type: User })
   @ManyToOne(() => User, (user) => user.recommomendations)
   user: User;
+
+  @ApiProperty()
+  @Column()
+  userId: number;
 }

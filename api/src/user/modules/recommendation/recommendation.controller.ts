@@ -20,14 +20,20 @@ import { JWTAuthGuard } from '../../../auth/jwt-auth-guard';
       },
     },
   },
+  params: {
+    userId: {
+      field: 'userId',
+      type: 'number',
+    },
+  },
   routes: {
     exclude: ['replaceOneBase', 'createManyBase'],
   },
 })
 @ApiTags('recommomendation')
-@ApiBearerAuth()
+// @ApiBearerAuth()
 @Controller('user/:userId/recommomendation')
-@UseGuards(JWTAuthGuard)
+// @UseGuards(JWTAuthGuard)
 export class RecommendationController
   implements CrudController<Recommomendation>
 {
